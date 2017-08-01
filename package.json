@@ -1,0 +1,16 @@
+{
+  "name": "asyncapi-editor",
+  "version": "1.0.0",
+  "description": "Editor for AsyncAPI documentation.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "Fran Mendez (fmvilas@gmail.com)",
+  "license": "MIT",
+  "dependencies": {
+    "asyncapi-docgen": "^1.0.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}
