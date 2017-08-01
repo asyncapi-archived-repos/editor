@@ -44,6 +44,8 @@ try {
   editor.setValue(doc);
 } catch (e) {
   console.error('Could not read previous document from localStorage.');
+
+  editor.setValue(document.getElementById("code").value);
 }
 
 function bindExpandButtons () {
