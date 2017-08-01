@@ -2,6 +2,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const docs = require('asyncapi-docgen');
 const express = require('express');
+const config = require('./lib/config');
 const app = express();
 
 app.use(bodyParser.text({ type: 'text/plain' }));
@@ -20,7 +21,6 @@ app.post('/code', async (req, res, next) => {
     });
   }
 
-  console.log(html);
   res.send(html);
 });
 
@@ -28,4 +28,4 @@ app.use((err, req, res, next) => {
   res.status(500).send(err);
 });
 
-app.listen(3000);
+app.listen(config.api.port);
