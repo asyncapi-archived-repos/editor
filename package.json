@@ -12,7 +12,8 @@
   "author": "Fran Mendez (fmvilas@gmail.com)",
   "license": "MIT",
   "dependencies": {
-    "asyncapi-docgen": "^1.1.0",
+    "archiver": "^2.0.0",
+    "asyncapi-docgen": "^1.2.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "node-yaml-config": "0.0.4"

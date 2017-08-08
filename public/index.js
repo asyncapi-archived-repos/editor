@@ -4,7 +4,7 @@ function onCodeChange (cm) {
   superagent
     .post('/code')
     .send(value)
-    .set('Accept', 'application/json')
+    .set('Accept', 'text/plain')
     .set('Content-Type', 'text/plain')
     .end(function(err, res){
       if (err) {
@@ -33,7 +33,8 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   mode: "text/yaml",
   lineNumbers: true,
   lineWrapping: true,
-  theme: 'material'
+  theme: 'material',
+  tabSize: 2
 });
 
 editor.on('change', _.debounce(onCodeChange, 500));
@@ -59,3 +60,21 @@ function bindExpandButtons () {
     });
   }
 }
+
+document.getElementById('generate-docs').addEventListener('click', function () {
+  var value = editor.getValue();
+
+  var form = document.createElement("form");
+  form.setAttribute("method", "post");
+  form.setAttribute("action", "/generate/docs");
+  form.setAttribute("style", "display: none;");
+
+  var text = document.createElement("textarea");
+  text.setAttribute("name", "data");
+  text.value = value;
+  form.appendChild(text);
+
+  document.body.appendChild(form);
+
+  form.submit();
+});

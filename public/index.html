@@ -12,6 +12,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.5.2/superagent.min.js"></script>
 </head>
 <body>
+  <div class="top-panel">
+    <img src="https://avatars0.githubusercontent.com/u/16401334?v=4&s=200" class="top-panel__logo" alt="AsyncAPI logo">
+    <span class="top-panel__logo-text">AsyncAPI</span>
+    <span class="top-panel__editor-text">editor</span>
+
+    <div class="top-panel__buttons">
+      <button id="generate-docs" class="top-panel__button">Download docs</button>
+      <a class="top-panel__button" href="https://github.com/asyncapi/asyncapi" target="_blank">Reference</a>
+    </div>
+  </div>
   <div class="left-panel">
     <textarea id="code" name="code">
 asyncapi: "1.0.0"
