@@ -1,6 +1,6 @@
 const path = require('path');
 const bodyParser = require('body-parser');
-const docs = require('asyncapi-docgen');
+const docs = require('../../asyncapi-docgen');
 const express = require('express');
 const archiver = require('archiver');
 const config = require('./lib/config');

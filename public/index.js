@@ -34,8 +34,19 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   lineNumbers: true,
   lineWrapping: true,
   theme: 'material',
-  tabSize: 2
+  tabSize: 2,
+  indentWithTabs: false,
+  extraKeys: { Tab: betterTab }
 });
+
+function betterTab(cm) {
+  if (cm.somethingSelected()) {
+    cm.indentSelection("add");
+  } else {
+    cm.replaceSelection(cm.getOption("indentWithTabs")? "\t":
+      Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
+  }
+}
 
 editor.on('change', _.debounce(onCodeChange, 500));
 
