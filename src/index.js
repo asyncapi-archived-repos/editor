@@ -1,8 +1,9 @@
 const path = require('path');
 const bodyParser = require('body-parser');
-const docs = require('asyncapi-docgen');
+const generator = require('asyncapi-generator');
 const express = require('express');
 const archiver = require('archiver');
+const YAML = require('js-yaml');
 const config = require('./lib/config');
 const app = express();
 
@@ -14,7 +15,15 @@ app.post('/code', async (req, res, next) => {
   let html;
 
   try {
-    html = await docs.generate(req.body);
+    const asyncapiObj = YAML.safeLoad(req.body);
+
+    html = await generator.generateTemplateFile({
+      template: 'html',
+      file: '.partials/content.html',
+      config: {
+        asyncapi: asyncapiObj,
+      }
+    });
   } catch (e) {
     return res.status(422).send({
       code: 'incorrect-format',
@@ -35,7 +44,15 @@ app.post('/generate/docs', async (req, res, next) => {
   let html;
 
   try {
-    html = await docs.generateFullHTML(req.body.data);
+    const asyncapiObj = YAML.safeLoad(req.body.data);
+
+    html = await generator.generateTemplateFile({
+      template: 'html',
+      file: 'index.html',
+      config: {
+        asyncapi: asyncapiObj,
+      }
+    });
   } catch (e) {
     return res.status(422).send({
       code: 'incorrect-format',
@@ -45,10 +62,21 @@ app.post('/generate/docs', async (req, res, next) => {
   }
   archive.append(html, { name: 'index.html' });
 
-  const css = await docs.getCSS();
-  archive.append(css, { name: 'css/main.css' });
+  try {
+    const css = await generator.getTemplateFile({
+      template: 'html',
+      file: 'css/main.css',
+    });
+    archive.append(css, { name: 'css/main.css' });
 
-  archive.finalize();
+    archive.finalize();
+  } catch (e) {
+    return res.status(500).send({
+      code: 'server-error',
+      message: e.message,
+      errors: e
+    });
+  }
 });
 
 app.use((err, req, res, next) => {
