@@ -15,7 +15,13 @@ app.post('/code', async (req, res, next) => {
   let html;
 
   try {
-    const asyncapiObj = YAML.safeLoad(req.body);
+    let asyncapiObj;
+
+    try {
+      asyncapiObj = JSON.parse(req.body);
+    } catch (er) {
+      asyncapiObj = YAML.safeLoad(req.body);
+    }
 
     html = await generator.generateTemplateFile({
       template: 'html',
@@ -44,7 +50,13 @@ app.post('/generate/docs', async (req, res, next) => {
   let html;
 
   try {
-    const asyncapiObj = YAML.safeLoad(req.body.data);
+    let asyncapiObj;
+
+    try {
+      asyncapiObj = JSON.parse(req.body.data);
+    } catch (er) {
+      asyncapiObj = YAML.safeLoad(req.body.data);
+    }
 
     html = await generator.generateTemplateFile({
       template: 'html',
