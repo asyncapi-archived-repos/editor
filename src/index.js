@@ -34,7 +34,7 @@ app.post('/code', async (req, res, next) => {
     return res.status(422).send({
       code: 'incorrect-format',
       message: e.message,
-      errors: Array.isArray(e) ? e.map(error => error.message) : null
+      errors: Array.isArray(e) ? e : null
     });
   }
 
