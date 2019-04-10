@@ -4,7 +4,7 @@ FROM node:9
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 # set default node environment
-ENV NODE_ENV production
+ENV NODE_ENV development
 
 COPY . /usr/src/app
 
