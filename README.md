@@ -1,3 +1,8 @@
+# Deprecation notice
+
+This package is deprecated and maintanance has been stopped in favor of [github.com/asyncapi/playground](https://github.com/asyncapi/playground).
+
+---
 
 # build docker image
 
